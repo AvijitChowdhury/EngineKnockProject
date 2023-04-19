@@ -36,7 +36,7 @@ def help_command(update, context):
 
 def load_model():
     global model
-    model = load_learner('Models\model_v2.pkl')
+    model = load_learner('model_v2_1.pkl')
     print('Model loaded')
 
 

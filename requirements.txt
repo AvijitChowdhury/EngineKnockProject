@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 anyio==3.6.2
 appdirs==1.4.4
 audioread==3.0.0

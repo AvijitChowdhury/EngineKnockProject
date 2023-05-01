@@ -24,7 +24,7 @@ pathlib.PosixPath = pathlib.WindowsPath
 
 def start(update, context):
     update.message.reply_text(
-        "Bot by @avijit on Twitter \n\n"
+        "Bot by @enginebot on Twitter \n\n"
         "Just send me a short (min 2s) video of your car engine running with the hood up and I'll try to tell you if it is running normally or possibly knocking.\nI will only look at 2 seconds in the middle of the video.\nYour video will not be saved. An example of what I'm expecting can be seen here https://youtu.be/qBAbQakgK60"
     )
 

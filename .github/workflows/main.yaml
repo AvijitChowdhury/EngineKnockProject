@@ -1,58 +1,58 @@
-# # Your workflow name.
-# name: Deploy to heroku.
+# Your workflow name.
+name: Deploy to heroku.
 
-# # Run workflow on every push to main branch.
-# on:
-#   push:
-#     branches: [main]
+# Run workflow on every push to main branch.
+on:
+  push:
+    branches: [main]
 
-# # Your workflows jobs.
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       # Check-out your repository.
-#       - name: Checkout
-#         uses: actions/checkout@v2
+# Your workflows jobs.
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Check-out your repository.
+      - name: Checkout
+        uses: actions/checkout@v2
 
-#       ### ⬇ IMPORTANT PART ⬇ ###
+      ### ⬇ IMPORTANT PART ⬇ ###
 
-#       - name: Build, Push and Release a Docker container to Heroku. # Your custom step name
-#         uses: gonuit/heroku-docker-deploy@v1.3.3 # GitHub action name (leave it as it is).
-#         with:
-#           # Below you must provide variables for your Heroku app.
+      - name: Build, Push and Release a Docker container to Heroku. # Your custom step name
+        uses: gonuit/heroku-docker-deploy@v1.3.3 # GitHub action name (leave it as it is).
+        with:
+          # Below you must provide variables for your Heroku app.
 
-#           # The email address associated with your Heroku account.
-#           # If you don't want to use repository secrets (which is recommended) you can do:
-#           # email: my.email@example.com
-#           email: ${{ secrets.HEROKU_EMAIL }}
+          # The email address associated with your Heroku account.
+          # If you don't want to use repository secrets (which is recommended) you can do:
+          # email: my.email@example.com
+          email: ${{ secrets.HEROKU_EMAIL }}
 
-#           # Heroku API key associated with provided user's email.
-#           # Api Key is available under your Heroku account settings.
-#           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          # Heroku API key associated with provided user's email.
+          # Api Key is available under your Heroku account settings.
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
 
-#           # Name of the heroku application to which the build is to be sent.
-#           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          # Name of the heroku application to which the build is to be sent.
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
 
-#           # (Optional, default: "./")
-#           # Dockerfile directory.
-#           # For example, if you have a Dockerfile in the root of your project, leave it as follows:
-#           dockerfile_directory: ./
+          # (Optional, default: "./")
+          # Dockerfile directory.
+          # For example, if you have a Dockerfile in the root of your project, leave it as follows:
+          dockerfile_directory: ./
 
-#           # (Optional, default: "Dockerfile")
-#           # Dockerfile name.
-#           dockerfile_name: Dockerfile
+          # (Optional, default: "Dockerfile")
+          # Dockerfile name.
+          dockerfile_name: Dockerfile
 
-#           # (Optional, default: "")
-#           # Additional options of docker build command.
-#           docker_options: "--no-cache"
+          # (Optional, default: "")
+          # Additional options of docker build command.
+          docker_options: "--no-cache"
 
-#           # (Optional, default: "web")
-#           # Select the process type for which you want the docker container to be uploaded.
-#           # By default, this argument is set to "web".
-#           # For more information look at https://devcenter.heroku.com/articles/process-model
-#           process_type: worker
-# ## ⬆ IMPORTANT PART ⬆ ###
+          # (Optional, default: "web")
+          # Select the process type for which you want the docker container to be uploaded.
+          # By default, this argument is set to "web".
+          # For more information look at https://devcenter.heroku.com/articles/process-model
+          process_type: worker
+## ⬆ IMPORTANT PART ⬆ ###
 
 # For most projects, this workflow file will not need changing; you simply need
 # to commit it to your repository.
@@ -65,69 +65,69 @@
 # the `language` matrix defined below to confirm you have the correct set of
 # supported CodeQL languages.
 #
-name: "Engine Bot"
+# name: "Engine Bot"
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ main ]
-  schedule:
-    - cron: '17 5 * * 5'
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     # The branches below must be a subset of the branches above
+#     branches: [ main ]
+#   schedule:
+#     - cron: '17 5 * * 5'
 
-jobs:
-  analyze:
-    name: Analyze
-    runs-on: ubuntu-latest
+# jobs:
+#   analyze:
+#     name: Analyze
+#     runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ 'python' ]
-        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
-        # Learn more:
-        # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
+#     strategy:
+#       fail-fast: false
+#       matrix:
+#         language: [ 'python' ]
+#         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
+#         # Learn more:
+#         # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v2
 
-    # Initializes the CodeQL tools for scanning.
-    - name: Engine bot
-      uses: gonuit/heroku-docker-deploy@v1.3.3
-      with:
-        languages: ${{ matrix.language }}
-        # If you wish to specify custom queries, you can do so here or in a config file.
-        # By default, queries listed here will override any specified in a config file.
-        # Prefix the list here with "+" to use these queries and those in the config file.
-        # queries: ./path/to/local/query, your-org/your-repo/queries@main
+#     # Initializes the CodeQL tools for scanning.
+#     - name: Engine bot
+#       uses: gonuit/heroku-docker-deploy@v1.3.3
+#       with:
+#         languages: ${{ matrix.language }}
+#         # If you wish to specify custom queries, you can do so here or in a config file.
+#         # By default, queries listed here will override any specified in a config file.
+#         # Prefix the list here with "+" to use these queries and those in the config file.
+#         # queries: ./path/to/local/query, your-org/your-repo/queries@main
 
-    # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
-    # If this step fails, then you should remove it and run the build manually (see below)
-        dockerfile_directory: ./
+#     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
+#     # If this step fails, then you should remove it and run the build manually (see below)
+#         dockerfile_directory: ./
 
-          # (Optional, default: "Dockerfile")
-          # Dockerfile name.
-        dockerfile_name: Dockerfile
+#           # (Optional, default: "Dockerfile")
+#           # Dockerfile name.
+#         dockerfile_name: Dockerfile
 
-          # (Optional, default: "")
-          # Additional options of docker build command.
-        docker_options: "--no-cache"
+#           # (Optional, default: "")
+#           # Additional options of docker build command.
+#         docker_options: "--no-cache"
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
+#     - name: Autobuild
+#       uses: github/codeql-action/autobuild@v1
 
-    # ℹ️ Command-line programs to run using the OS shell.
-    # 📚 https://git.io/JvXDl
+#     # ℹ️ Command-line programs to run using the OS shell.
+#     # 📚 https://git.io/JvXDl
 
-    # ✏️ If the Autobuild fails above, remove it and uncomment the following three lines
-    #    and modify them (or add more) to build your code if your project
-    #    uses a compiled language
+#     # ✏️ If the Autobuild fails above, remove it and uncomment the following three lines
+#     #    and modify them (or add more) to build your code if your project
+#     #    uses a compiled language
 
-    #- run: |
-    #   make bootstrap
-    #   make release
+#     #- run: |
+#     #   make bootstrap
+#     #   make release
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v1
+#     - name: Perform CodeQL Analysis
+#       uses: github/codeql-action/analyze@v1

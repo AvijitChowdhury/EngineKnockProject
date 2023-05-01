@@ -12,7 +12,7 @@
 # WORKDIR /app
 
 # CMD  python3 app.py
-FROM python:3.7
+FROM python:3.9-slim
 RUN pip install python-telegram-bot==13.2
 RUN mkdir /app
 WORKDIR /app

@@ -11,4 +11,4 @@ COPY . .
 
 WORKDIR /app
 
-CMD  run --server.port $PORT app.py
+CMD  python3 app.py

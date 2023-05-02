@@ -1,5 +1,5 @@
 import logging
-
+import os
 # from telegram.ext import Updater, CommandHandler, MessageHandler, filters
 
 from telegram.ext import Updater, CommandHandler,  MessageHandler,Filters
@@ -102,7 +102,18 @@ def main():
 
     dp.add_handler(MessageHandler(Filters.video, infer_knocking))
 
-    updater.start_polling()
+    # updater.start_polling()
+    
+
+    TOKEN = "5801822958:AAEjeSEC7wfK07JrUr-LqPNlOGLbvCnNVG8"
+    PORT = int(os.environ.get('PORT', '8443'))
+    # add handlers
+    updater.run_webhook(
+        listen="0.0.0.0",
+        port=PORT,
+        secret_token='ASecretTokenIHaveChangedByNow',
+        webhook_url="https://<appname>.herokuapp.com/"
+    )
     updater.idle()
 
 

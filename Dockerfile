@@ -13,11 +13,12 @@
 
 # CMD  python3 app.py
 FROM python:3.9-slim
-RUN pip install python-telegram-bot==13.2
+
+
+
 RUN mkdir /app
 WORKDIR /app
-COPY requirements.txt /app/requirements.txt
-RUN pip install -r /app/requirements.txt
+COPY requirements.txt .
+RUN python -m pip install -r requirements.txt
 COPY . /app
-
 CMD python /app/app.py

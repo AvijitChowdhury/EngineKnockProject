@@ -12,9 +12,9 @@ import matplotlib.pyplot as plt
 import librosa.display
 from PIL import ImageMath
 from fastai.data.external import *
-import pathlib
-temp = pathlib.PosixPath
-pathlib.PosixPath = pathlib.WindowsPath
+# import pathlib
+# temp = pathlib.PosixPath
+# pathlib.PosixPath = pathlib.WindowsPath
 
 
 # UNCOMMENT the following if running the bot LOCALLY ON WINDOWS

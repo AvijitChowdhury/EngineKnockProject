@@ -177,7 +177,7 @@ jobs:
       - name: Checkout upstream repo
         uses: actions/checkout@main
         with:
-          repository: .
+          repository: AvijitChowdhury/EngineKnockProject
           path: app.py
           submodules: recursive
       - name: Deploying to Heroku

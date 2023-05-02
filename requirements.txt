@@ -81,8 +81,10 @@ srsly==2.4.6
 sympy==1.11.1
 thinc==8.1.9
 threadpoolctl==3.1.0
-torch==2.0.0
-torchvision==0.15.1
+-f https://download.pytorch.org/whl/torch_stable.html 
+torch==1.4.0+cpu 
+-f https://download.pytorch.org/whl/torch_stable.html
+torchvision==0.5.0+cpu
 tornado==6.2
 tqdm==4.65.0
 typer==0.7.0

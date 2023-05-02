@@ -2,7 +2,7 @@ import logging
 import os
 # from telegram.ext import Updater, CommandHandler, MessageHandler, filters
 import sys
-from telegram.ext import Updater, CommandHandler,  MessageHandler,Filters
+from telegram.ext import Updater, CommandHandler,  MessageHandler, Filters
 from fastai.vision.all import load_learner
 
 import numpy as np
@@ -23,28 +23,7 @@ from fastai.data.external import *
 # pathlib.PosixPath = pathlib.WindowsPath
 
 # Enabling logging
-logging.basicConfig(level=logging.INFO,
-                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-logger = logging.getLogger()
 
-# Getting mode, so we could define run function for local and Heroku setup
-mode = os.getenv("MODE")
-TOKEN = os.getenv("TOKEN")
-if mode == "dev":
-    def run(updater):
-        updater.start_polling()
-elif mode == "prod":
-    def run(updater):
-        PORT = int(os.environ.get("PORT", "8443"))
-        HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
-        # Code from https://github.com/python-telegram-bot/python-telegram-bot/wiki/Webhooks#heroku
-        updater.start_webhook(listen="0.0.0.0",
-                              port=PORT,
-                              url_path=TOKEN)
-        updater.bot.set_webhook("https://{}.herokuapp.com/{}".format(HEROKU_APP_NAME, TOKEN))
-else:
-    logger.error("No MODE specified!")
-    sys.exit(1)
 
 def start(update, context):
     update.message.reply_text(
@@ -107,10 +86,9 @@ def infer_knocking(update, context):
 
 
 def main():
-    #load_model()
+    # load_model()
     # async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     #     await update.message.reply_text(f'Hello {update.effective_user.first_name}')
-
 
     # app = ApplicationBuilder().token("5801822958:AAEjeSEC7wfK07JrUr-LqPNlOGLbvCnNVG8").build()
 
@@ -119,7 +97,8 @@ def main():
 
     # app.run_polling()
     load_model()
-    updater = Updater(token="5801822958:AAEjeSEC7wfK07JrUr-LqPNlOGLbvCnNVG8",use_context=True)
+    updater = Updater(
+        token="5801822958:AAEjeSEC7wfK07JrUr-LqPNlOGLbvCnNVG8", use_context=True)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help_command))
@@ -127,7 +106,6 @@ def main():
     dp.add_handler(MessageHandler(Filters.video, infer_knocking))
 
     # updater.start_polling()
-    
 
     # TOKEN = "5801822958:AAEjeSEC7wfK07JrUr-LqPNlOGLbvCnNVG8"
     # PORT = int(os.environ.get('PORT', '8443'))
@@ -139,9 +117,33 @@ def main():
     #     webhook_url="https://<appname>.herokuapp.com/"
     # )
     # updater.idle()
-    run(updater)
+    logging.basicConfig(level=logging.INFO,
+                        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+
+
+    logger = logging.getLogger()
+
+    # Getting mode, so we could define run function for local and Heroku setup
+    mode = os.getenv("MODE")
+    TOKEN = os.getenv("TOKEN")
+    if mode == "dev":
+        def run(updater):
+            updater.start_polling()
+    elif mode == "prod":
+        def run(updater):
+            PORT = int(os.environ.get("PORT", "8443"))
+            HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
+            # Code from https://github.com/python-telegram-bot/python-telegram-bot/wiki/Webhooks#heroku
+            updater.start_webhook(listen="0.0.0.0",
+                                port=PORT,
+                                url_path=TOKEN)
+            updater.bot.set_webhook(
+                "https://{}.herokuapp.com/{}".format(HEROKU_APP_NAME, TOKEN))
+    else:
+        logger.error("No MODE specified!")
+        sys.exit(1)
+        run(updater)
 
 
 if __name__ == '__main__':
     main()
-

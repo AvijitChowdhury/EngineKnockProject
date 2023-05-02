@@ -160,13 +160,7 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
-      - name: Checkout for updates
-        uses: actions/github-script@main
-        id: status
-        with:
-          script: |
-            const checkForUpdates = require('./scripts/check-for-updates');
-            await checkForUpdates({ context, core, exec, github });
+      
  
   heroku:
     permissions:
